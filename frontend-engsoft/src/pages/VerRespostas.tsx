@@ -1,4 +1,4 @@
-import Resposta from "./Resposta";
+import Resposta from "../components/Resposta";
 
 export default function VerRespostas() {
 
