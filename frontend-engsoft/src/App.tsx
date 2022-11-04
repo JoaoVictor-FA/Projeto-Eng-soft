@@ -1,12 +1,12 @@
 import Login from './components/Login'
-import Respostas from './components/Respostas'
+import VerRespostas from './components/VerRespostas'
 
 function App() {
 
   return (
-    <div className='bg-gradient-to-br from-black to-blue-pure h-screen flex justify-center items-center'>
+    <div className='bg-gradient-to-br from-black to-blue-pure min-h-screen h-100 flex justify-center items-center'>
       {/* <Login /> */}
-      <Respostas />
+      <VerRespostas />
     </div>
   )
 }
