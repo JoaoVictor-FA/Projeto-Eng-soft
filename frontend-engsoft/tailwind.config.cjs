@@ -14,6 +14,24 @@ module.exports = {
         secondary: "#373EED",
         pure: "#0000FF",
       },
+      cyan:{
+        main:"#20EBD3",
+        darker:"#00AA96",
+        light:"#6BF8E7"
+      },
+      green: {
+        dark: "#1D6916",
+        light:"#3CAE14"
+      },
+      red: {
+        main: "#EA1919",
+        secondary: "#AD1313",
+        darker: "#680000",
+      },
+      yellow: {
+        main: "#FFC700",
+        darker: "#FF7A00",
+      },
       white: "#FFFFFF",
       black: "#000000",
       gray: {
