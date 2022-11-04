@@ -1,12 +1,14 @@
+import { Routes, Route } from 'react-router-dom'
 import Login from './components/Login'
-import VerRespostas from './components/VerRespostas'
-
+import StudentHome from './pages/StudentHome'
 function App() {
 
   return (
-    <div className='bg-gradient-to-br from-black to-blue-pure min-h-screen h-100 flex justify-center items-center'>
-      {/* <Login /> */}
-      <VerRespostas />
+    <div className='bg-gradient-to-br from-black to-blue-pure h-screen flex justify-center items-center'>
+    <Routes>
+      <Route path='/' element={<Login />}/>
+      <Route path='/Student' element={<StudentHome />} />
+    </Routes>
     </div>
   )
 }
