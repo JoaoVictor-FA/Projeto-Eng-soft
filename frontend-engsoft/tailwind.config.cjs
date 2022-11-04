@@ -39,6 +39,7 @@ module.exports = {
         dark: "rgba(0, 0, 0, 0.5)",
         main: "rgba(0, 0, 0, 0.25)"
       }
+
     },
   },
   plugins: [],
