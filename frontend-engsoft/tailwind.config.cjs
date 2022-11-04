@@ -2,7 +2,11 @@
 module.exports = {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      dropShadow: {
+        'lg': '-14px 14px 3px rgba(0,0,0, 0.25)',
+      }
+    },
     colors: {
       blue: {
         main: "#2028EB",
