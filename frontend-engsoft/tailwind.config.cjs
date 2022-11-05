@@ -15,8 +15,24 @@ module.exports = {
       gray: {
         light: "#F2F2F2",
         dark: "rgba(0, 0, 0, 0.5)",
-        main: "rgba(0, 0, 0, 0.25)"
-      }
+        main: "rgba(0, 0, 0, 0.25)",
+      },
+      red: {
+        main: "#EA1919",
+        secondary: "#AD1313",
+        dark: "#680000",
+      },
+      yellow: "#FFC700",
+      orange: "#FF7A00",
+      green: {
+        main: "#3CAE14",
+        dark: "#1D6916",
+      },
+      cyan: {
+        main: "#20EBD3",
+        secondary: "#6BF8E7",
+        dark: "#00AA96",
+      },
     },
   },
   plugins: [],
