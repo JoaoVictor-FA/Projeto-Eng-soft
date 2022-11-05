@@ -15,7 +15,7 @@ export default function Labels() {
         <span>Lorem</span>
       </div>
       <div className="flex items-center gap-2">
-        <div className="bg-yellow-main w-5 h-3" />
+        <div className="bg-yellow w-5 h-3" />
         <span>Lorem</span>
       </div>
       <div className="flex items-center gap-2">

@@ -27,7 +27,7 @@ export default function Login() {
           />
           <img
             src={eye}
-            alt="eye"
+            alt="mostrar senha"
             className="absolute right-2 top-7 cursor-pointer"
             onClick={() => setVisiblePassword(!visiblePassword)}
           />
