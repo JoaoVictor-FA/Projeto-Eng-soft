@@ -1,5 +1,5 @@
 import arrow from "../assets/Arrow.svg";
-export default function Card({ isTeacher = false }: { isTeacher?: boolean }) {
+export default function Card({ isTeacher = false, justShow = false  }: { isTeacher?: boolean, justShow?: boolean  }) {
   return (
     <>
       <article className="flex items-center justify-between p-2 rounded bg-blue-secondary">
@@ -10,8 +10,8 @@ export default function Card({ isTeacher = false }: { isTeacher?: boolean }) {
           <h4 className="font-bold">Lorem Ipsum</h4>
         </div>
         <div className="flex justify-center items-center gap-3">
-          <p>dd/mm/YY</p>
-          {!isTeacher && (
+          {!justShow && <p>dd/mm/YY</p>}
+          {!isTeacher && !justShow && (
             <button className="bg-blue-main hover:bg-blue-darker transition p-3 rounded">
               <img src={arrow} alt="arrow" />
             </button>

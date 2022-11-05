@@ -5,7 +5,7 @@ export default function Resposta() {
   return (
     <div className="mt-24 flex flex-col h-max w-1/2 bg-gray-dark text-white p-4 gap-4 font-bold rounded shadow-xl shadow-gray-main ">
       <div className="px-20">
-        <Card/>
+        <Card justShow />
       </div>
       <h1 className="text-lg">Autor: Lorenco ipsilo</h1>
       <h1 className="text-lg">Data de envio: 04/11/2022</h1>
