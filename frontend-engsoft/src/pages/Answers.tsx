@@ -1,6 +1,6 @@
 import Resposta from "../components/Resposta";
 
-export default function VerRespostas() {
+export default function Answers() {
 
     return (
         <div className="py-20">
