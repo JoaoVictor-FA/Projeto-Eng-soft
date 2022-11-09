@@ -19,6 +19,7 @@ module.exports = {
           light: "#F2F2F2",
           dark: "rgba(0, 0, 0, 0.5)",
           main: "rgba(0, 0, 0, 0.25)",
+          dark2: "rgba(66, 66, 74, 0.2)",
         },
         red: {
           main: "#EA1919",
