@@ -15,10 +15,10 @@ class Registrar(Resource):
     def get(self):
         return 'Registrar'
     
-api.add_resource(Login, '/registrar')
+api.add_resource(Registrar, '/registrar')
 
 class Logout(Resource):
     def get(self):
         return 'Logout'
     
-api.add_resource(Login, '/logout')
+api.add_resource(Logout, '/logout')
