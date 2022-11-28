@@ -9,16 +9,39 @@ api = Api(auth)
 
 def email(email_str: str):
     if email_str.find('@') != -1:
-        if (Usuario.query.filter_by(email=email_str).first()): # checa se já existe na db
-            raise ValueError(f'{email_str} já foi registrado')
-        else:
-            return email_str
+        return email_str
     else:
         raise ValueError(f'{email_str} não é um email válido')
 
+
+# configuração do parser de login
+lParser = reqparse.RequestParser()
+lParser.add_argument( # email
+    'email', dest='email', type=email,
+    location='form', required=True,
+)
+
+lParser.add_argument( # senha
+    'password', dest='password',
+    location='form', required=True,
+    help='Senha do usuário'
+)
+
 class Login(Resource):
-    def get(self):
-        return 'Login'
+    def post(self):
+        args = lParser.parse_args()
+        
+        usuario = Usuario.query.filter_by(email=args.email).first()
+        
+        if not usuario or not check_password_hash(usuario.password, args.password):
+            raise ValueError('Uma ou mais credenciais estão incorretas')
+        
+        return {
+            "data": {
+                "nome": usuario.nome,
+                "email": usuario.email
+            }
+        }
     
 api.add_resource(Login, '/login')
 
@@ -45,6 +68,9 @@ rParser.add_argument( # senha
 class Registrar(Resource):
     def post(self):
         args = rParser.parse_args()
+        
+        if (Usuario.query.filter_by(email=args.email).first()): # checa se já existe na db
+            raise ValueError(f'{args.email} já foi registrado')
         
         usuario = Usuario(email=args.email, nome=args.nome, password=generate_password_hash(args.password, method='sha256'))
         
