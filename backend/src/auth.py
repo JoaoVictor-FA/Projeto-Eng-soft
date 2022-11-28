@@ -1,4 +1,5 @@
 from flask import Blueprint
+from flask_login import login_required, login_user, logout_user
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -36,6 +37,7 @@ class Login(Resource):
         if not usuario or not check_password_hash(usuario.password, args.password):
             raise ValueError('Uma ou mais credenciais estão incorretas')
         
+        login_user(usuario)
         return {
             "data": {
                 "nome": usuario.nome,
@@ -82,7 +84,9 @@ class Registrar(Resource):
 api.add_resource(Registrar, '/registrar')
 
 class Logout(Resource):
+    @login_required
     def get(self):
-        return 'Logout'
+        logout_user()
+        return 'Usuário Deslogado'
     
 api.add_resource(Logout, '/logout')
