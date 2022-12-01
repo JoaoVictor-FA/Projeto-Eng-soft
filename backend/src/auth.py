@@ -1,5 +1,5 @@
 from flask import Blueprint
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
@@ -90,3 +90,11 @@ class Logout(Resource):
         return 'Usuário Deslogado'
     
 api.add_resource(Logout, '/logout')
+
+class Perfil(Resource):
+    @login_required
+    def get(self):
+        usuario = current_user()
+        return usuario
+    
+api.add_resource(Perfil, '/perfil')

@@ -1,4 +1,5 @@
-from flask import Flask
+from http import HTTPStatus
+from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
@@ -22,6 +23,10 @@ def create_app():
     @login_manager.user_loader
     def load_user(user_id):
         return Usuario.query.get(int(user_id))
+    
+    @login_manager.unauthorized_handler
+    def unauthorized():
+        abort(HTTPStatus.UNAUTHORIZED)
     
     #with app.app_context(): 
     #    db.create_all()
