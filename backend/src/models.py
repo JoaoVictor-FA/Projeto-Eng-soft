@@ -22,6 +22,12 @@ class Usuario(UserMixin, db.Model):
         }
         
 class Professor(Usuario):
-    id = db.Column(db.ForeignKey("usuario.id"), primary_key=True)
-    #tarefas = db.Column()
-    __mapper_args__ = {'polymorphic_identity': 'aluno'}
+    id = db.Column(db.ForeignKey(Usuario.id), primary_key=True)
+    atividades = db.relationship("Atividade", back_populates="autor", cascade='all, delete-orphan', lazy="joined")
+    __mapper_args__ = {'polymorphic_identity': 'professor'}
+    
+    
+class Atividade(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    autor_id = db.Column(db.ForeignKey(Professor.id))
+    autor = db.relationship("Professor", back_populates="atividades", uselist=False)
