@@ -28,8 +28,8 @@ def create_app():
     def unauthorized():
         abort(HTTPStatus.UNAUTHORIZED)
     
-    #with app.app_context(): 
-    #    db.create_all()
+    with app.app_context(): 
+        db.create_all()
     
     # blueprint de autenticacao
     from .auth import auth as auth_blueprint
