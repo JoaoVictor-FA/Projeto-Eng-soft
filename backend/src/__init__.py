@@ -2,6 +2,7 @@ from http import HTTPStatus
 from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from .models import Professor
 
 db = SQLAlchemy()
 
@@ -22,6 +23,9 @@ def create_app():
     
     @login_manager.user_loader
     def load_user(user_id):
+        if Usuario.query.get(int(user_id)).type == 'professor':
+            return Professor.query.get(int(user_id))
+        
         return Usuario.query.get(int(user_id))
     
     @login_manager.unauthorized_handler

@@ -26,6 +26,17 @@ class Professor(Usuario):
     atividades = db.relationship("Atividade", back_populates="autor", cascade='all, delete-orphan', lazy="joined")
     __mapper_args__ = {'polymorphic_identity': 'professor'}
     
+    def __call__(self):
+        return {
+            "data": {
+                "nome": self.nome,
+                "email": self.email,
+                "atividades": map(lambda item: {
+                    "id": item.autor_id
+                }, self.atividades)
+            }
+        }
+    
     
 class Atividade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
