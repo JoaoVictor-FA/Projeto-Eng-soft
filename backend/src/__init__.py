@@ -2,7 +2,6 @@ from http import HTTPStatus
 from flask import Flask, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
-from .models import Professor
 
 db = SQLAlchemy()
 
@@ -19,7 +18,7 @@ def create_app():
     login_manager.login_view = '/Login'
     login_manager.init_app(app)
     
-    from .models import Usuario
+    from .models import Usuario, Aluno, Professor
     
     @login_manager.user_loader
     def load_user(user_id):
