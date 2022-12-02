@@ -17,7 +17,7 @@ class Usuario(UserMixin, db.Model):
 class Aluno(Usuario):
     __tablename__ = "aluno"
     id = db.Column(db.ForeignKey('usuario.id'), primary_key=True)
-    tarefas = db.relationship("Tarefas")
+    tarefas = db.relationship("Tarefas", back_populates="alunos") #adicionar att alunos em atividade
     status = db.relationship("Status")
 
     __mapper_args__ = {
