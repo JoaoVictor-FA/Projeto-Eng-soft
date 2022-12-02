@@ -49,6 +49,7 @@ class Aluno(Usuario):
             "data": {
                 "nome": self.nome,
                 "email": self.email,
+                "tipo": self.type,
                 "tarefas": [self.__tarefaMapping(i, x) for i,x in enumerate(self.tarefas)]
             }
         }
@@ -63,6 +64,7 @@ class Professor(Usuario):
             "data": {
                 "nome": self.nome,
                 "email": self.email,
+                "tipo": self.type,
                 "atividades": [{
                         "id": item.id
                     } for item in self.atividades]
