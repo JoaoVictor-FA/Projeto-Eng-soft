@@ -38,4 +38,8 @@ def create_app():
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
     
+    # blueprint das rotas de usuario
+    from .usuario import usuario as usuario_blueprint
+    app.register_blueprint(usuario_blueprint)
+    
     return app

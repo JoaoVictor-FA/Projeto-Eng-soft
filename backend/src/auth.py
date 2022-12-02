@@ -40,7 +40,7 @@ class Login(Resource):
         login_user(usuario)
         return "Usuário Logado"
     
-api.add_resource(Login, '/login')
+api.add_resource(Login, '/auth/login')
 
 
 # configuração do parser de registro
@@ -85,7 +85,7 @@ class Registrar(Resource):
         
         return 'Usuário Cadastrado'
     
-api.add_resource(Registrar, '/registrar')
+api.add_resource(Registrar, '/auth/registrar')
 
 class Logout(Resource):
     @login_required
@@ -93,11 +93,11 @@ class Logout(Resource):
         logout_user()
         return 'Usuário Deslogado'
     
-api.add_resource(Logout, '/logout')
+api.add_resource(Logout, '/auth/logout')
 
 class Perfil(Resource):
     @login_required
     def get(self):
         return current_user()
     
-api.add_resource(Perfil, '/perfil')
+api.add_resource(Perfil, '/auth/perfil')

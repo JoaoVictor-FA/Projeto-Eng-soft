@@ -1,6 +1,4 @@
 import datetime
-import random
-import string
 from flask_login import UserMixin
 from . import db
 
@@ -57,7 +55,7 @@ class Aluno(Usuario):
         
 class Professor(Usuario):
     id = db.Column(db.ForeignKey(Usuario.id), primary_key=True)
-    atividades = db.relationship("Atividade", cascade='all, delete-orphan', lazy="joined")
+    atividades = db.relationship("Atividade", lazy="joined")
     __mapper_args__ = {'polymorphic_identity': 'professor'}
     
     def __call__(self):
@@ -69,26 +67,16 @@ class Professor(Usuario):
                 "atividades": [item() for item in self.atividades]
             }
         }
-    
-    
-# gera codigo de 6 caracteres formado por letras maiusculas e numeros para Atividade
-def geraCodigo(size = 6, chars = string.ascii_uppercase + string.digits):
-    codigo = ''.join(random.choice(chars) for _ in range(size))
-    
-    if not Atividade.query.filter_by(codigoAcesso=codigo).first():
-        return geraCodigo()
-    
-    return codigo
 
 class Atividade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    nome = db.Column(db.String(100))
     autor_id = db.Column(db.ForeignKey(Professor.id))
+    nome = db.Column(db.String(100))
     dataAbertura = db.Column(db.DateTime(), default=datetime.datetime.now())
     dataLimite = db.Column(db.DateTime())
-    #descricao
-    # respostas
-    codigoAcesso = db.Column(db.String(6), default=geraCodigo(), unique=True)
+    descricao = db.Column(db.String(100000))
+    # respostas // ainda precisa ser feito pq ainda nao tem o Modelo do arquivo
+    codigoAcesso = db.Column(db.String(6))
     alunos = db.relationship("Aluno", back_populates="tarefas", secondary=association_table, lazy="joined")
     complexidade = db.Column(db.String(10))
     
@@ -98,8 +86,8 @@ class Atividade(db.Model):
                 "nome": self.nome,
                 "data de abertura": self.dataAbertura.strftime("%d/%m/%Y, %H:%M:%S"),
                 "data limite": self.dataLimite.strftime("%d/%m/%Y, %H:%M:%S"),
-                # descricao
-                # respostas
+                "descricao": self.descricao,
+                # respostas // ainda precisa ser feito pq ainda nao tem o Modelo do arquivo
                 "codigo de acesso": self.codigoAcesso,
                 "alunos": [{"nome": item.nome, "email": item.email} for item in self.alunos],
                 "complexidade": self.complexidade
