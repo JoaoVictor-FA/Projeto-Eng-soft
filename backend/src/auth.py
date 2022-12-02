@@ -1,9 +1,9 @@
 from flask import Blueprint
-from flask_login import login_required, login_user, logout_user
+from flask_login import current_user, login_required, login_user, logout_user
 from flask_restful import Api, Resource, reqparse
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from .models import Usuario
+from .models import Aluno, Professor, Usuario
 
 auth = Blueprint('auth', __name__)
 api = Api(auth)
@@ -38,14 +38,9 @@ class Login(Resource):
             raise ValueError('Uma ou mais credenciais estão incorretas')
         
         login_user(usuario)
-        return {
-            "data": {
-                "nome": usuario.nome,
-                "email": usuario.email
-            }
-        }
+        return "Usuário Logado"
     
-api.add_resource(Login, '/login')
+api.add_resource(Login, '/auth/login')
 
 
 # configuração do parser de registro
@@ -67,6 +62,12 @@ rParser.add_argument( # senha
     help='Senha do usuário'
 )
 
+rParser.add_argument( # tipo
+    'type', dest='type',
+    location='form', required=True,
+    help='Tipo de usuário (\'professor\' ou \'aluno\''
+)
+
 class Registrar(Resource):
     def post(self):
         args = rParser.parse_args()
@@ -74,14 +75,17 @@ class Registrar(Resource):
         if (Usuario.query.filter_by(email=args.email).first()): # checa se já existe na db
             raise ValueError(f'{args.email} já foi registrado')
         
-        usuario = Usuario(email=args.email, nome=args.nome, password=generate_password_hash(args.password, method='sha256'))
+        if (args.type == 'professor'):
+            usuario = Professor(email=args.email, nome=args.nome, password=generate_password_hash(args.password, method='sha256'))
+        elif (args.type == 'aluno'):
+            usuario = Aluno(email=args.email, nome=args.nome, password=generate_password_hash(args.password, method='sha256'))
         
         db.session.add(usuario)
         db.session.commit()
         
         return 'Usuário Cadastrado'
     
-api.add_resource(Registrar, '/registrar')
+api.add_resource(Registrar, '/auth/registrar')
 
 class Logout(Resource):
     @login_required
@@ -89,4 +93,11 @@ class Logout(Resource):
         logout_user()
         return 'Usuário Deslogado'
     
-api.add_resource(Logout, '/logout')
+api.add_resource(Logout, '/auth/logout')
+
+class Perfil(Resource):
+    @login_required
+    def get(self):
+        return current_user()
+    
+api.add_resource(Perfil, '/auth/perfil')
