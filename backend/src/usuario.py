@@ -80,6 +80,9 @@ class InscreveAtividade(Resource):
         
         atividade = Atividade.query.filter_by(codigoAcesso=args.codigo).first()
         
+        if not atividade:
+            raise ValueError('Uma atividade com esse código não foi encontrada')
+        
         current_user.tarefas.append(atividade)
         db.session.commit()
     
