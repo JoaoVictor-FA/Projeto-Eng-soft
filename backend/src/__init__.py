@@ -25,7 +25,7 @@ def create_app():
         if Usuario.query.get(int(user_id)).type == 'professor':
             return Professor.query.get(int(user_id))
         
-        return Usuario.query.get(int(user_id))
+        return Aluno.query.get(int(user_id))
     
     @login_manager.unauthorized_handler
     def unauthorized():
