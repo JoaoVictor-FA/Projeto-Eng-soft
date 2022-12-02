@@ -76,7 +76,7 @@ class Atividade(db.Model):
     dataLimite = db.Column(db.DateTime())
     descricao = db.Column(db.String(100000))
     # respostas // ainda precisa ser feito pq ainda nao tem o Modelo do arquivo
-    codigoAcesso = db.Column(db.String(6))
+    codigoAcesso = db.Column(db.String(6), unique=True)
     alunos = db.relationship("Aluno", back_populates="tarefas", secondary=association_table, lazy="joined")
     complexidade = db.Column(db.String(10))
     

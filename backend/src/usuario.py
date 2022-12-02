@@ -59,6 +59,30 @@ class CriaAtividade(Resource):
         current_user.atividades.append(atividade)
         db.session.commit()
         
-        return atividade()
+        return 'Atividade criada com sucesso.'
     
 api.add_resource(CriaAtividade, '/usuario/atividade')
+
+codigoParser = reqparse.RequestParser()
+codigoParser.add_argument( # codigo
+    'codigo', dest='codigo', type=str,
+    location='form', required=True,
+    help='Código de Acesso da atividade'
+)
+
+class InscreveAtividade(Resource):
+    @login_required
+    def post(self):
+        if (current_user.type != 'aluno'):
+            abort(HTTPStatus.UNAUTHORIZED)
+    
+        args = codigoParser.parse_args()
+        
+        atividade = Atividade.query.filter_by(codigoAcesso=args.codigo).first()
+        
+        current_user.tarefas.append(atividade)
+        db.session.commit()
+    
+        return 'Inscrição realizada com sucesso.'
+        
+api.add_resource(InscreveAtividade, '/usuario/inscrever')
