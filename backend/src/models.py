@@ -73,7 +73,12 @@ class Professor(Usuario):
     
 # gera codigo de 6 caracteres formado por letras maiusculas e numeros para Atividade
 def geraCodigo(size = 6, chars = string.ascii_uppercase + string.digits):
-    return ''.join(random.choice(chars) for _ in range(size))
+    codigo = ''.join(random.choice(chars) for _ in range(size))
+    
+    if not Atividade.query.filter_by(codigoAcesso=codigo).first():
+        return geraCodigo()
+    
+    return codigo
 
 class Atividade(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -83,7 +88,7 @@ class Atividade(db.Model):
     dataLimite = db.Column(db.DateTime())
     #descricao
     # respostas
-    codigoAcesso = db.Column(db.String(6), default=geraCodigo())
+    codigoAcesso = db.Column(db.String(6), default=geraCodigo(), unique=True)
     alunos = db.relationship("Aluno", back_populates="tarefas", secondary=association_table, lazy="joined")
     complexidade = db.Column(db.String(10))
     
