@@ -1,5 +1,6 @@
 import Card from "../components/Card";
 import Labels from "../components/Labels";
+import EntrarAtividade from "../components/EntrarAtividade";
 export default function StudentHome() {
   return (
     <main className="text-white w-full max-w-6xl">
@@ -12,9 +13,7 @@ export default function StudentHome() {
             <Card />
           </div>
         </aside>
-        <div className="">
-          <h3>Inscreva-se numa atividade</h3>
-        </div>
+        <EntrarAtividade />
       </section>
     </main>
   )
